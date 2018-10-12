@@ -3,15 +3,9 @@
         class="w-full p-3"
     >
         <div
+            v-if="filteringEnabled"
             class="mt-3 mb-6 flex text-grey-darker"
         >
-            <slot>
-                <h2
-                    class="block pl-3 leading-normal"
-                >
-                    Title
-                </h2>
-            </slot>
             <div
                 class="flex-grow justify-end text-right"
             >
@@ -302,6 +296,12 @@ export default {
 
         isLoading () {
             return this.asyncCall && this.connection.loading;
+        },
+
+        filteringEnabled() {
+            const filterableColumns = this.columns.map(column => column.filterable);
+
+            return filterableColumns.length > 0;
         },
     },
 
